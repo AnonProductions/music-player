@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import data from "./data";
 
@@ -47,6 +47,18 @@ function App() {
     audioRef.current.play();
     setIsPlaying(true);
   };
+
+  useEffect(() => {
+    window.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape") {
+        setLibraryStatus(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    document.title = `${currentSong.name} | Music Player`;
+  }, [currentSong]);
 
   return (
     <div className={`App ${libraryStatus ? "library-active" : ""}`}>
